@@ -18,13 +18,14 @@ namespace ConsoleUI
             //BrandManager brandManager = new BrandManager(new EfBrandDal());
             //brandManager.Add(new Brand { BrandName = "MERCEDES-BENZ" });
 
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Update(new Color { Id = 3, ColorName = "GRI"});
+            //ColorManager colorManager = new ColorManager(new EfColorDal());
+            //colorManager.Update(new Color { Id = 3, ColorName = "GRI"});
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine("Marka-Model: {0} - {1} / Renk: {2} / Fiyat: {3}", car.BrandName, car.CarName, car.ColorName, car.DailyPrice);
             }
+            Console.WriteLine(carManager.GetCarDetails().Message);
         }
     }
 }
