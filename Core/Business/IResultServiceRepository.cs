@@ -1,11 +1,13 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Entities;
+using Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Core.Business
 {
-    public interface IResultServiceRepository<TEntity>
+    public interface IResultServiceRepository<TEntity> 
+        where TEntity : class, IEntity, new()
     {
         IResult Add(TEntity entity);
         IResult Update(TEntity entity);
