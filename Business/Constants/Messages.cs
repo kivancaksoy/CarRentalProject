@@ -29,5 +29,9 @@ namespace Business.Constants
         public static string ColorDeleted = "Renk silindi.";
         public static string ColorUpdated = "Renk güncellendi.";
         public static string ColorsListed = "Renkler listelendi.";
+
+        //Rental Crud operations
+        public static string ReturnDateNotNull = "Araba teslim edilmemiş. Kiralanamaz.";
+        public static string RentalAdded = "Araba kiralandı.";
     }
 }
