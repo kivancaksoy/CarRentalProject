@@ -29,7 +29,7 @@ namespace ConsoleUI
 
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             
-            Console.WriteLine(rentalManager.Add(new Rental { CarId = 1, CustomerId = 1, RentDate = DateTime.Now }).Message);
+            Console.WriteLine(rentalManager.Add(new Rental { CarId = 2, CustomerId = 1 }).Message);
 
 
             //GetCarDetailsTest();

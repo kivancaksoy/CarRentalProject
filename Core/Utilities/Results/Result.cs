@@ -8,12 +8,12 @@ namespace Core.Utilities.Results
     {
         public Result(bool success, string message) : this(success)
         {
-            this.Message = message;
+            Message = message;
         }
 
         public Result(bool success)
         {
-            this.Success = success;
+            Success = success;
         }
 
         public bool Success { get; }
