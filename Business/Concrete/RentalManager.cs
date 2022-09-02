@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,9 @@ namespace Business.Concrete
 
         public IResult Add(Rental entity)
         {
+            ValidationTool.Validate(new RentalValidator(), entity);
+
+
             var result = _rentalDal.GetAll(u => u.CarId == entity.CarId);
             if (result.Any())
             {
@@ -51,6 +56,8 @@ namespace Business.Concrete
 
         public IResult Update(Rental entity)
         {
+            ValidationTool.Validate(new RentalValidator(), entity);
+
             _rentalDal.Update(entity);
             return new SuccessResult();
         }
