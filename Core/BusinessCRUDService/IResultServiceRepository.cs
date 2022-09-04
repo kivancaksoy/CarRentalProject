@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Business
+namespace Core.BusinessCRUDService
 {
-    public interface IResultServiceRepository<TEntity> 
+    public interface IResultServiceRepository<TEntity>
         where TEntity : class, IEntity, new()
     {
         IResult Add(TEntity entity);

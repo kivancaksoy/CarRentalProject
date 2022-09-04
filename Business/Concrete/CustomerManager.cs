@@ -17,15 +17,15 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
-        public IResult Add(Customer entity)
+        public IResult Add(Customer customer)
         {
-            _customerDal.Add(entity);
+            _customerDal.Add(customer);
             return new SuccessResult();
         }
 
-        public IResult Delete(Customer entity)
+        public IResult Delete(Customer customer)
         {
-            _customerDal.Delete(entity);
+            _customerDal.Delete(customer);
             return new SuccessResult();
         }
 
@@ -39,9 +39,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == id));
         }
 
-        public IResult Update(Customer entity)
+        public IResult Update(Customer customer)
         {
-            _customerDal.Update(entity);
+            _customerDal.Update(customer);
             return new SuccessResult();
         }
     }

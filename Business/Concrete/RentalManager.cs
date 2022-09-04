@@ -3,6 +3,8 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Entities;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -23,24 +25,21 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Add(Rental entity)
+        public IResult Add(Rental rental)
         {
-
-            var result = _rentalDal.GetAll(u => u.CarId == entity.CarId);
-            if (result.Any())
+            IResult result = BusinessRules.Run(CheckIfReturnDateNull(rental));
+            if (result != null)
             {
-                if(result.Any(u => u.ReturnDate == null))
-                {
-                    return new ErrorResult(Messages.ReturnDateNotNull);
-                }                
+                return result;
             }
-            _rentalDal.Add(entity);
+            
+            _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
-        public IResult Delete(Rental entity)
+        public IResult Delete(Rental rental)
         {
-            _rentalDal.Delete(entity);
+            _rentalDal.Delete(rental);
             return new SuccessResult();
         }
 
@@ -55,10 +54,23 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Update(Rental entity)
+        public IResult Update(Rental rental)
         {
 
-            _rentalDal.Update(entity);
+            _rentalDal.Update(rental);
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfReturnDateNull(Rental rental)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            if (result.Any())
+            {
+                if (result.Any(r => r.ReturnDate == null))
+                {
+                    return new ErrorResult(Messages.ReturnDateNotNull);
+                }
+            }
             return new SuccessResult();
         }
     }

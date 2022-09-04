@@ -33,5 +33,8 @@ namespace Business.Constants
         //Rental Crud operations
         public static string ReturnDateNotNull = "Araba teslim edilmemiş. Kiralanamaz.";
         public static string RentalAdded = "Araba kiralandı.";
+
+        //CarImage Crud operations
+        public static string CarImageLimitExceeded = "Bir arabaya ait en fazla 5 resim olabilir.";
     }
 }

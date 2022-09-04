@@ -1,4 +1,4 @@
-﻿using Core.Business;
+﻿using Core.Entities;
 using Core.Utilities.Results;
 using Entities.Concrete;
 using System;
@@ -7,8 +7,13 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IBrandService : IResultServiceRepository<Brand>
+    public interface IBrandService
     {
-        //Core'da IResultServiceRepository<T> yapısı oluşturuldu.
+        IResult Add(Brand brand);
+        IResult Update(Brand brand);
+        IResult Delete(Brand brand);
+
+        IDataResult<List<Brand>> GetAll();
+        IDataResult<Brand> GetById(int id);
     }
 }

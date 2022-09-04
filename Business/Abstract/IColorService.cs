@@ -1,4 +1,5 @@
-﻿using Core.Business;
+﻿using Core.BusinessCRUDService;
+using Core.Entities;
 using Core.Utilities.Results;
 using Entities.Concrete;
 using System;
@@ -7,8 +8,13 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IColorService : IResultServiceRepository<Color>
+    public interface IColorService
     {
-        //Core'da IResultServiceRepository<T> yapısı oluşturuldu.
+        IResult Add(Color color);
+        IResult Update(Color color);
+        IResult Delete(Color color);
+
+        IDataResult<List<Color>> GetAll();
+        IDataResult<Color> GetById(int id);
     }
 }
