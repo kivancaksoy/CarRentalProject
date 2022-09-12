@@ -1,7 +1,5 @@
-﻿using Core.BusinessCRUDService;
-using Core.Entities;
-using Core.Utilities.Results;
-using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +14,8 @@ namespace Business.Abstract
 
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetById(int id);
+
+        IDataResult<List<OperationClaim>> GetClaims(User user);
+        IDataResult<User> GetByEmail(string email);
     }
 }
