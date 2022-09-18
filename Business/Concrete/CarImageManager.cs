@@ -59,10 +59,10 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId)
         {
-            IDataResult<List<CarImage>> result = (IDataResult<List<CarImage>>)BusinessRules.Run(CheckIfCarImagesNullForCarId(carId));
+            IResult result = BusinessRules.Run(CheckIfCarImagesNullForCarId(carId));
             if (result != null)
             {
-                return result;
+                return new ErrorDataResult<List<CarImage>>(GetDefaultCarImage(carId).Data);
             }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
@@ -85,16 +85,21 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        private IDataResult<List<CarImage>> CheckIfCarImagesNullForCarId(int carId)
+        private IResult CheckIfCarImagesNullForCarId(int carId)
         {
             var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
             if (!result)
             {
-                List<CarImage> carImage = new List<CarImage>();
-                carImage.Add( new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "Default.jpg" });
-                return new ErrorDataResult<List<CarImage>>(carImage);
+                return new ErrorResult();
             }
-            return new SuccessDataResult<List<CarImage>>();
+            return new SuccessResult();
+        }
+
+        private IDataResult<List<CarImage>> GetDefaultCarImage(int carId)
+        {
+            List<CarImage> carImage = new List<CarImage>();
+            carImage.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "Default.jpg" });
+            return new SuccessDataResult<List<CarImage>>(carImage);
         }
     }
 }
