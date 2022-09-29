@@ -62,7 +62,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(CheckIfCarImagesNullForCarId(carId));
             if (result != null)
             {
-                return new ErrorDataResult<List<CarImage>>(GetDefaultCarImage(carId).Data);
+                return new SuccessDataResult<List<CarImage>>(GetDefaultCarImage(carId).Data);
             }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
