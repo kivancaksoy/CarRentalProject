@@ -75,6 +75,9 @@ namespace WebAPI
 
             app.UseHttpsRedirection();
 
+            //imagelere ulaþmak için eklenmeli
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
