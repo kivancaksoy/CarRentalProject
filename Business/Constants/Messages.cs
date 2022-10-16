@@ -33,7 +33,7 @@ namespace Business.Constants
         public static string ColorsListed = "Renkler listelendi.";
 
         //Rental Crud operations
-        public static string ReturnDateNotNull = "Araba teslim edilmemiş. Kiralanamaz.";
+        public static string ReturnDateNull = "Araba teslim edilmemiş. Kiralanamaz.";
         public static string RentalAdded = "Araba kiralandı.";
 
         //CarImage Crud operations

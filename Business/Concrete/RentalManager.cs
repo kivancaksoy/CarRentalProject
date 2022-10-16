@@ -74,7 +74,7 @@ namespace Business.Concrete
             {
                 if (result.Any(r => r.ReturnDate == null))
                 {
-                    return new ErrorResult(Messages.ReturnDateNotNull);
+                    return new ErrorResult(Messages.ReturnDateNull);
                 }
             }
             return new SuccessResult();
