@@ -72,11 +72,6 @@ namespace Business.Concrete
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
             if (result.Any(r => r.ReturnDate == null))
             {
-                //if (result.Any(r => r.ReturnDate == null))
-                //{
-                //    return new ErrorResult(Messages.ReturnDateNull);
-                //}
-
                 return new ErrorResult(Messages.ReturnDateNull);
             }
             return new SuccessResult();
