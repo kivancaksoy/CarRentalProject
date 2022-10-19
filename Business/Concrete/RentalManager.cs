@@ -28,7 +28,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            IResult result = BusinessRules.Run(CheckIfReturnDateNull(rental));
+            IResult result = BusinessRules.Run(CheckIfReturnDateNull(rental), CheckIfCarRental(rental));
             if (result != null)
             {
                 return result;
@@ -70,12 +70,25 @@ namespace Business.Concrete
         private IResult CheckIfReturnDateNull(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
-            if (result.Any())
+            if (result.Any(r => r.ReturnDate == null))
             {
-                if (result.Any(r => r.ReturnDate == null))
-                {
-                    return new ErrorResult(Messages.ReturnDateNull);
-                }
+                //if (result.Any(r => r.ReturnDate == null))
+                //{
+                //    return new ErrorResult(Messages.ReturnDateNull);
+                //}
+
+                return new ErrorResult(Messages.ReturnDateNull);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCarRental(Rental rental)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            if (result.Any(r => (r.RentDate <= rental.RentDate && r.ReturnDate >= rental.RentDate) ||
+                r.RentDate > rental.RentDate && r.RentDate < rental.ReturnDate))
+            {
+                return new ErrorResult("araba secilen tarih aralığında kiralanmıştır.");
             }
             return new SuccessResult();
         }
